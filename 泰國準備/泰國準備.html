@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曼谷行前準備清單 (12/24-12/29)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0fdf4; /* Light green tint */
+        }
+        .checkbox-wrapper input:checked + div {
+            background-color: #10b981;
+            border-color: #10b981;
+        }
+        .checkbox-wrapper input:checked + div svg {
+            display: block;
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        /* Hide scrollbar for clean look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 pb-20">
+
+    <!-- Header / Hero Section -->
+    <div class="bg-gradient-to-r from-teal-600 to-emerald-600 text-white p-6 rounded-b-3xl shadow-lg relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10 transform translate-x-4 -translate-y-4">
+            <i class="fa-solid fa-plane-departure text-9xl"></i>
+        </div>
+        <h1 class="text-2xl font-bold mb-1">曼谷聖誕跨年之旅 🇹🇭</h1>
+        <p class="text-emerald-100 text-sm mb-4"><i class="fa-regular fa-calendar mr-2"></i>2025/12/24 - 12/29 (6天5夜)</p>
+        
+        <!-- Progress Bar -->
+        <div class="bg-white/20 rounded-full h-2 w-full mt-4">
+            <div id="progressBar" class="bg-yellow-400 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <p class="text-xs text-right mt-1 text-emerald-100">準備進度: <span id="progressText">0%</span></p>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 -mt-6">
+        
+        <!-- Navigation Tabs -->
+        <div class="flex overflow-x-auto gap-2 no-scrollbar pb-2 mb-2 sticky top-2 z-20">
+            <button onclick="switchTab('flight')" class="tab-btn bg-white text-teal-700 px-4 py-2 rounded-full text-sm font-bold shadow-md whitespace-nowrap active-tab ring-2 ring-teal-500" data-target="flight">行程資訊</button>
+            <button onclick="switchTab('prep')" class="tab-btn bg-white text-gray-500 px-4 py-2 rounded-full text-sm font-medium shadow-md whitespace-nowrap hover:text-teal-600" data-target="prep">行前準備</button>
+            <button onclick="switchTab('packing')" class="tab-btn bg-white text-gray-500 px-4 py-2 rounded-full text-sm font-medium shadow-md whitespace-nowrap hover:text-teal-600" data-target="packing">打包清單</button>
+            <button onclick="switchTab('notice')" class="tab-btn bg-white text-gray-500 px-4 py-2 rounded-full text-sm font-medium shadow-md whitespace-nowrap hover:text-teal-600" data-target="notice">天氣與注意</button>
+        </div>
+
+        <!-- Section: Flight & Hotel Info -->
+        <div id="flight-section" class="space-y-4 tab-content animate-fade-in">
+            <!-- Flight Out -->
+            <div class="bg-white rounded-2xl p-5 card-shadow border-l-4 border-teal-500 relative">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="bg-teal-100 text-teal-800 text-xs font-bold px-2 py-1 rounded">去程 12/24 (三)</span>
+                    <span class="text-gray-400 text-sm font-mono">BR201</span>
+                </div>
+                <div class="flex justify-between items-center text-center">
+                    <div>
+                        <div class="text-2xl font-bold text-gray-800">09:40</div>
+                        <div class="text-xs text-gray-500">TPE 台北桃園</div>
+                    </div>
+                    <div class="flex flex-col items-center px-4">
+                        <i class="fa-solid fa-plane text-teal-500 transform rotate-90"></i>
+                        <span class="text-xs text-gray-400 mt-1">3h 55m</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-800">12:35</div>
+                        <div class="text-xs text-gray-500">BKK 蘇凡納布</div>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 flex items-start gap-2">
+                    <i class="fa-solid fa-circle-info text-teal-500 mt-0.5 text-sm"></i>
+                    <p class="text-xs text-gray-600">抵達剛好中午，出關預計 13:30-14:00。前往飯店可搭乘機場快線(ARL)至 Phaya Thai 站，再轉車或步行。</p>
+                </div>
+            </div>
+
+            <!-- Flight Back -->
+            <div class="bg-white rounded-2xl p-5 card-shadow border-l-4 border-orange-500">
+                <div class="flex justify-between items-center mb-3">
+                    <span class="bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded">回程 12/29 (一)</span>
+                    <span class="text-gray-400 text-sm font-mono">BR62</span>
+                </div>
+                <div class="flex justify-between items-center text-center">
+                    <div>
+                        <div class="text-2xl font-bold text-gray-800">11:20</div>
+                        <div class="text-xs text-gray-500">BKK 蘇凡納布</div>
+                    </div>
+                    <div class="flex flex-col items-center px-4">
+                        <i class="fa-solid fa-plane text-orange-500 transform rotate-90"></i>
+                        <span class="text-xs text-gray-400 mt-1">3h 40m</span>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-800">16:00</div>
+                        <div class="text-xs text-gray-500">TPE 台北桃園</div>
+                    </div>
+                </div>
+                <div class="mt-3 pt-3 border-t border-gray-100 flex items-start gap-2">
+                    <i class="fa-solid fa-clock text-orange-500 mt-0.5 text-sm"></i>
+                    <p class="text-xs text-gray-600">建議 <strong>08:30</strong> 出發前往機場。若是搭機場快線，請預留充裕時間。</p>
+                </div>
+            </div>
+
+            <!-- Hotel Info -->
+            <div class="bg-white rounded-2xl p-5 card-shadow relative">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="bg-indigo-100 p-2 rounded-lg text-indigo-600">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg">Fyn Hotel</h3>
+                        <p class="text-xs text-gray-500">區域: Ratchathewi / Victory Monument</p>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 mb-3">
+                    <p class="text-sm font-medium text-gray-700">英文地址</p>
+                    <p class="text-xs text-gray-500 mt-1">17/1 Soi Ratchawithi 9, Thanon Phaya Thai, Ratchathewi, Bangkok 10400</p>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-sm font-medium text-gray-700">泰文地址 (給司機看)</p>
+                            <p class="text-xs text-gray-500 mt-1 font-thai" id="thai-address">17/1 ซอย ราชวิถี 9 ถนน พญาไท ราชเทวี กรุงเทพมหานคร 10400</p>
+                        </div>
+                        <button onclick="copyAddress()" class="text-gray-400 hover:text-indigo-600 ml-2">
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-3 flex gap-2">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Fyn+Hotel+Bangkok" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition">
+                        <i class="fa-solid fa-map-location-dot mr-1"></i> Google Maps
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Pre-Departure Prep -->
+        <div id="prep-section" class="hidden space-y-3 tab-content">
+            <h3 class="text-lg font-bold text-gray-700 ml-1">出發前待辦</h3>
+            
+            <!-- Quick Links Buttons -->
+            <div class="grid grid-cols-2 gap-3">
+                <a href="https://www.evaair.com/zh-tw/manage/check-in/" target="_blank" class="bg-green-600 text-white p-3 rounded-xl shadow text-center text-sm font-bold hover:bg-green-700 transition flex flex-col items-center gap-2 group">
+                    <i class="fa-solid fa-check-to-slot text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span>長榮預辦登機</span>
+                </a>
+                <a href="https://tdac.immigration.go.th/arrival-card/#/home" target="_blank" class="bg-blue-600 text-white p-3 rounded-xl shadow text-center text-sm font-bold hover:bg-blue-700 transition flex flex-col items-center gap-2 group">
+                    <i class="fa-solid fa-passport text-2xl group-hover:scale-110 transition-transform"></i>
+                    <span>泰國數位入境卡TDAC</span>
+                </a>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 card-shadow">
+                <div class="space-y-3">
+                    <!-- Item -->
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="hidden" data-id="prep-1">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-md flex items-center justify-center transition-colors group-hover:border-teal-400">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-gray-700 select-none flex-1">檢查護照 (需有6個月以上效期)</span>
+                    </label>
+                    <hr class="border-gray-100">
+                    <!-- Item -->
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="hidden" data-id="prep-2">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-md flex items-center justify-center transition-colors group-hover:border-teal-400">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="flex-1">
+                            <span class="text-gray-700 select-none block">確認泰國簽證</span>
+                            <span class="text-xs text-gray-400 block">請確認 2025 年底最新的免簽或電子簽政策。</span>
+                        </div>
+                    </label>
+                    <hr class="border-gray-100">
+                    <!-- Item -->
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="hidden" data-id="prep-3">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-md flex items-center justify-center transition-colors group-hover:border-teal-400">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-gray-700 select-none flex-1">購買旅遊平安險/不便險</span>
+                    </label>
+                    <hr class="border-gray-100">
+                     <!-- Item -->
+                     <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="hidden" data-id="prep-4">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-md flex items-center justify-center transition-colors group-hover:border-teal-400">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-gray-700 select-none flex-1">預訂網卡 (AIS/True/DTAC)</span>
+                    </label>
+                    <hr class="border-gray-100">
+                    <!-- Item -->
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="hidden" data-id="prep-5">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-md flex items-center justify-center transition-colors group-hover:border-teal-400">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-gray-700 select-none flex-1">換泰銖 (Superrich匯率通常最好)</span>
+                    </label>
+                    <hr class="border-gray-100">
+                    <!-- Item -->
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer group">
+                        <input type="checkbox" class="hidden" data-id="prep-6">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-md flex items-center justify-center transition-colors group-hover:border-teal-400">
+                            <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-gray-700 select-none flex-1">下載 Grab 或 Bolt (叫車用)</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section: Packing List -->
+        <div id="packing-section" class="hidden space-y-4 tab-content">
+            
+            <!-- Documents -->
+            <div>
+                <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">重要文件 & 錢包</h4>
+                <div class="bg-white rounded-xl p-4 card-shadow space-y-3">
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-doc-1">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">護照 (正本+影本備用)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-doc-2">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">機票行程單 / 訂房憑證 (手機截圖)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-doc-3">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">現金 (台幣/美金/泰銖) & 信用卡 (海外回饋高)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Clothes -->
+            <div>
+                <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">衣物 (12月均溫 22-32°C)</h4>
+                <div class="bg-white rounded-xl p-4 card-shadow space-y-3">
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-1">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">短袖/透氣衣物 (4-5套)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-6">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">內衣褲 & 襪子 (足夠天數)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-2">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">薄外套 (百貨/捷運冷氣很強!)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-3">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">長褲/長裙 (進寺廟大皇宮必備，不可破洞)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-7">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">帽子 (遮陽必備)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-4">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">好走的鞋子 + 涼鞋/拖鞋</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-cloth-5">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">泳衣 (若有游泳行程)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Toiletries & Meds -->
+            <div>
+                <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">盥洗 & 醫藥</h4>
+                <div class="bg-white rounded-xl p-4 card-shadow space-y-3">
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-med-1">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">牙刷牙膏 (許多環保飯店不提供)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-med-2">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">防曬乳 & 墨鏡 (陽光很毒)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-med-5">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700 text-teal-600 font-medium">防蚊液 (泰國蚊子多)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-med-6">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">面紙 / 濕紙巾 (如廁或擦汗方便)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-med-3">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700 text-red-500 font-medium">腸胃藥 (必帶!)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-med-4">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">暈車藥 / 止痛藥 / OK繃</span>
+                    </label>
+                </div>
+            </div>
+
+             <!-- Electronics & Misc -->
+             <div>
+                <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 ml-1">電子 & 雜物</h4>
+                <div class="bg-white rounded-xl p-4 card-shadow space-y-3">
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-elec-5">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">退卡針 (換SIM卡神器)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-elec-1">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">行動電源 (一定要放隨身行李!!)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-elec-2">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <div class="flex-1">
+                            <span class="text-gray-700 block">手機充電線 & 轉接頭</span>
+                            <span class="text-xs text-gray-400">泰國插座通常通用台灣插頭，但若電壓非110-240V通用需注意。</span>
+                        </div>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-elec-3">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">摺疊傘 (晴雨兩用)</span>
+                    </label>
+                    <label class="checkbox-wrapper flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" class="hidden" data-id="pack-elec-4">
+                        <div class="w-5 h-5 border-2 border-gray-300 rounded flex items-center justify-center"><svg class="w-3 h-3 text-white hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg></div>
+                        <span class="text-gray-700">環保購物袋 (泰國超商不給塑膠袋)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Clear Button -->
+            <div class="text-center pt-4">
+                <button onclick="clearProgress()" class="text-xs text-red-400 underline hover:text-red-600">重置所有勾選狀態</button>
+            </div>
+        </div>
+
+        <!-- Section: Notices -->
+        <div id="notice-section" class="hidden space-y-4 tab-content">
+            
+            <!-- Weather Forecast with Horizontal Scroll -->
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-bold text-blue-900"><i class="fa-solid fa-cloud-sun text-blue-500 mr-2"></i>曼谷天氣預報</h3>
+                    <span class="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">12/24-12/29</span>
+                </div>
+                
+                <div class="flex overflow-x-auto gap-3 pb-2 no-scrollbar">
+                    <!-- Day 1: 12/24 (Wed) -->
+                    <div class="min-w-[85px] bg-white rounded-lg p-3 text-center shadow-sm border border-blue-100 flex flex-col items-center">
+                        <div class="text-xs font-bold text-gray-500 mb-1">12/24(三)</div>
+                        <i class="fa-solid fa-cloud-sun text-yellow-500 text-2xl mb-1"></i>
+                        <div class="text-sm font-bold text-gray-800">33°C</div>
+                        <div class="text-xs text-gray-400">23°C</div>
+                    </div>
+                    <!-- Day 2: 12/25 (Thu) -->
+                    <div class="min-w-[85px] bg-white rounded-lg p-3 text-center shadow-sm border border-blue-100 flex flex-col items-center">
+                        <div class="text-xs font-bold text-gray-500 mb-1">12/25(四)</div>
+                        <i class="fa-solid fa-sun text-orange-500 text-2xl mb-1"></i>
+                        <div class="text-sm font-bold text-gray-800">33°C</div>
+                        <div class="text-xs text-gray-400">23°C</div>
+                    </div>
+                    <!-- Day 3: 12/26 (Fri) -->
+                    <div class="min-w-[85px] bg-white rounded-lg p-3 text-center shadow-sm border border-blue-100 flex flex-col items-center">
+                        <div class="text-xs font-bold text-gray-500 mb-1">12/26(五)</div>
+                        <i class="fa-solid fa-cloud-sun-rain text-gray-400 text-2xl mb-1"></i>
+                        <div class="text-sm font-bold text-gray-800">31°C</div>
+                        <div class="text-xs text-gray-400">24°C</div>
+                    </div>
+                    <!-- Day 4: 12/27 (Sat) -->
+                    <div class="min-w-[85px] bg-white rounded-lg p-3 text-center shadow-sm border border-blue-100 flex flex-col items-center">
+                        <div class="text-xs font-bold text-gray-500 mb-1">12/27(六)</div>
+                        <i class="fa-solid fa-cloud-sun text-yellow-500 text-2xl mb-1"></i>
+                        <div class="text-sm font-bold text-gray-800">31°C</div>
+                        <div class="text-xs text-gray-400">22°C</div>
+                    </div>
+                    <!-- Day 5: 12/28 (Sun) -->
+                    <div class="min-w-[85px] bg-white rounded-lg p-3 text-center shadow-sm border border-blue-100 flex flex-col items-center">
+                        <div class="text-xs font-bold text-gray-500 mb-1">12/28(日)</div>
+                        <i class="fa-solid fa-cloud-sun text-yellow-500 text-2xl mb-1"></i>
+                        <div class="text-sm font-bold text-gray-800">31°C</div>
+                        <div class="text-xs text-gray-400">21°C</div>
+                    </div>
+                    <!-- Day 6: 12/29 (Mon) -->
+                    <div class="min-w-[85px] bg-white rounded-lg p-3 text-center shadow-sm border border-blue-100 flex flex-col items-center">
+                        <div class="text-xs font-bold text-gray-500 mb-1">12/29(一)</div>
+                        <i class="fa-solid fa-sun text-orange-500 text-2xl mb-1"></i>
+                        <div class="text-sm font-bold text-gray-800">31°C</div>
+                        <div class="text-xs text-gray-400">20°C</div>
+                    </div>
+                </div>
+                <div class="mt-2 text-xs text-blue-600 flex items-start gap-1">
+                    <i class="fa-solid fa-circle-info mt-0.5"></i>
+                    <span>早晚溫差約10度，中午炎熱，建議洋蔥式穿搭。</span>
+                </div>
+            </div>
+
+             <!-- LEGAL WARNINGS (NEW) -->
+             <div class="bg-red-50 border-l-4 border-red-500 rounded-r-xl p-5 card-shadow">
+                <h3 class="font-bold text-red-800 mb-3"><i class="fa-solid fa-triangle-exclamation mr-2"></i>特別法令提醒 (重要!)</h3>
+                <ul class="space-y-3 text-sm text-gray-700">
+                    <li class="flex gap-3">
+                        <div class="min-w-[20px] text-red-600 font-bold"><i class="fa-solid fa-ban"></i></div>
+                        <div>
+                            <strong>嚴禁電子菸：</strong>
+                            <p class="text-xs text-gray-500 mt-1">泰國全境<span class="text-red-600 font-bold">嚴禁攜帶與使用電子菸</span>。抓到罰款極重（可達數萬泰銖）甚至有坐牢風險。請絕對不要帶去。</p>
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <div class="min-w-[20px] text-red-600 font-bold"><i class="fa-solid fa-cannabis"></i></div>
+                        <div>
+                            <strong>大麻相關：</strong>
+                            <p class="text-xs text-gray-500 mt-1">雖泰國部分合法，但含有大麻成分的產品（飲料、零食）<span class="text-red-600 font-bold">嚴禁帶回台灣</span>，否則觸犯運輸二級毒品重罪。</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+             <!-- LIFESTYLE TIPS (NEW) -->
+             <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-5 card-shadow">
+                <h3 class="font-bold text-indigo-800 mb-3"><i class="fa-solid fa-lightbulb mr-2"></i>生活隱形雷區</h3>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-wine-glass-slash text-indigo-400 mt-1"></i>
+                        <div>
+                            <strong>禁酒時段：</strong>
+                            <span class="text-xs block text-gray-500">超商/超市 14:00-17:00 及 00:00-11:00 禁止賣酒。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-faucet-drip text-indigo-400 mt-1"></i>
+                        <div>
+                            <strong>水質安全：</strong>
+                            <span class="text-xs block text-gray-500">自來水不可生飲，亦不建議煮沸飲用，請買瓶裝水。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-carrot text-indigo-400 mt-1"></i>
+                        <div>
+                            <strong>水果禁忌：</strong>
+                            <span class="text-xs block text-gray-500">「榴槤」與「山竹」通常禁止帶入飯店房間或捷運，前者因味，後者怕染色。</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-traffic-light text-indigo-400 mt-1"></i>
+                        <div>
+                            <strong>交通尖峰：</strong>
+                            <span class="text-xs block text-gray-500">平日 17:00-19:00 極度塞車，去機場或趕行程請搭 BTS/MRT，避免計程車。</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Culture -->
+            <div class="bg-white rounded-xl p-5 card-shadow">
+                <h3 class="font-bold text-gray-800 mb-3"><i class="fa-solid fa-temple text-teal-600 mr-2"></i>文化與禁忌</h3>
+                <ul class="list-disc list-outside ml-4 space-y-2 text-sm text-gray-600">
+                    <li><strong>寺廟穿著：</strong>不可穿無袖背心、短褲、短裙（需過膝）。大皇宮抓得最嚴。</li>
+                    <li><strong>頭部神聖：</strong>不要隨便摸泰國人的頭（包括小孩）。</li>
+                    <li><strong>腳底不潔：</strong>坐下時腳底不要對著人或佛像。</li>
+                    <li><strong>合十禮：</strong>說「薩瓦迪卡」時雙手合十放在胸前。</li>
+                </ul>
+            </div>
+
+            <!-- Tips -->
+            <div class="bg-white rounded-xl p-5 card-shadow">
+                <h3 class="font-bold text-gray-800 mb-3"><i class="fa-solid fa-coins text-yellow-500 mr-2"></i>小費與金錢</h3>
+                <ul class="list-disc list-outside ml-4 space-y-2 text-sm text-gray-600">
+                    <li><strong>餐廳：</strong>一般餐廳不用，高檔餐廳若有Service Charge也不用。按摩通常給 50-100 泰銖小費。</li>
+                    <li><strong>計程車：</strong>通常跳表會有零頭，可以湊整數不用找零當小費。</li>
+                    <li><strong>詐騙：</strong>大皇宮附近若有人說「今天沒開」並推薦你去別的地方，絕對是詐騙。</li>
+                </ul>
+            </div>
+
+             <!-- Emergency -->
+             <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                <h3 class="font-bold text-red-800 mb-2">緊急聯絡</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <span class="block text-gray-500">觀光警察</span>
+                        <span class="font-bold text-red-600 text-lg">1155</span>
+                    </div>
+                    <div>
+                        <span class="block text-gray-500">急救中心</span>
+                        <span class="font-bold text-red-600 text-lg">1669</span>
+                    </div>
+                    <div class="col-span-2">
+                        <span class="block text-gray-500">駐泰國台北經濟文化辦事處</span>
+                        <span class="block font-medium">+66-81-666-4006 (急難救助)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Nav Spacing -->
+    <div class="h-10"></div>
+
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all content
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            // Show target content
+            const targetSection = document.getElementById(tabId + '-section');
+            if(targetSection) targetSection.classList.remove('hidden');
+
+            // Update Buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if(btn.dataset.target === tabId) {
+                    btn.classList.remove('text-gray-500');
+                    btn.classList.add('text-teal-700', 'active-tab', 'ring-2', 'ring-teal-500');
+                } else {
+                    btn.classList.add('text-gray-500');
+                    btn.classList.remove('text-teal-700', 'active-tab', 'ring-2', 'ring-teal-500');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Copy Address Function
+        function copyAddress() {
+            const text = document.getElementById('thai-address').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('泰文地址已複製！');
+            }).catch(err => {
+                console.error('複製失敗', err);
+            });
+        }
+
+        // Checkbox Persistence & Progress
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        function updateProgress() {
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percent = Math.round((checked / total) * 100);
+            
+            progressBar.style.width = percent + '%';
+            progressText.innerText = percent + '%';
+        }
+
+        function saveState() {
+            const state = {};
+            checkboxes.forEach(cb => {
+                state[cb.dataset.id] = cb.checked;
+            });
+            localStorage.setItem('bangkok_trip_checklist', JSON.stringify(state));
+            updateProgress();
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('bangkok_trip_checklist');
+            if (saved) {
+                const state = JSON.parse(saved);
+                checkboxes.forEach(cb => {
+                    if (state[cb.dataset.id]) {
+                        cb.checked = true;
+                    }
+                });
+            }
+            updateProgress();
+        }
+
+        function clearProgress() {
+            if(confirm('確定要清除所有勾選紀錄嗎？')) {
+                checkboxes.forEach(cb => cb.checked = false);
+                saveState();
+            }
+        }
+
+        // Initialize
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', saveState);
+        });
+        loadState();
+
+    </script>
+</body>
+</html>
