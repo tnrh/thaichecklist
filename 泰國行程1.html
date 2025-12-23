@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>曼谷 6 天 5 夜｜閨蜜深度遊 (加密版)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Kanit:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF80AB; /* 閨蜜粉 */
+            --primary-dark: #C2185B;
+            --secondary: #26C6DA; /* 清爽藍 */
+            --bg: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text: #424242;
+            --gray: #9E9E9E;
+            --shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding-bottom: 100px;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        /* --- 🔒 密碼鎖定畫面 --- */
+        #login-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #FF80AB, #FF4081);
+            z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; color: white;
+            padding: 20px; box-sizing: border-box;
+        }
+        .login-box {
+            background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);
+            padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%; max-width: 320px;
+        }
+        #pass-input {
+            padding: 12px; border-radius: 10px; border: none; outline: none;
+            width: 80%; text-align: center; font-size: 1.2rem; margin-top: 15px;
+            letter-spacing: 5px;
+        }
+        #login-btn {
+            margin-top: 15px; padding: 10px 30px; border-radius: 20px;
+            border: none; background: white; color: #FF4081; font-weight: bold;
+            cursor: pointer; font-size: 1rem; transition: transform 0.2s;
+        }
+        #login-btn:active { transform: scale(0.95); }
+        .error-msg { color: #FFE0B2; font-size: 0.9rem; margin-top: 10px; display: none; }
+
+
+        /* --- 主內容 --- */
+        header {
+            background: linear-gradient(120deg, #FF80AB, #FF4081);
+            color: white; padding: 40px 20px 60px;
+            border-radius: 0 0 30px 30px; position: relative;
+        }
+
+        h1 { margin: 0; font-family: 'Kanit', sans-serif; font-size: 1.8rem; letter-spacing: 1px; }
+        .subtitle { margin-top: 8px; font-weight: 300; font-size: 0.95rem; opacity: 0.95; }
+        
+        .nav-wrapper {
+            position: sticky; top: 0; z-index: 100;
+            background: var(--bg); padding: 10px 0; margin-top: -40px;
+        }
+        .tabs {
+            display: flex; overflow-x: auto; padding: 5px 20px; gap: 10px;
+            scrollbar-width: none;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+        
+        .tab-btn {
+            background: var(--card-bg); border: none; padding: 10px 16px;
+            border-radius: 25px; font-size: 0.9rem; color: var(--gray);
+            font-weight: 500; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s; white-space: nowrap; flex-shrink: 0;
+        }
+        .tab-btn.active {
+            background: var(--primary-dark); color: white;
+            transform: scale(1.05); box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3);
+        }
+
+        .content-section { display: none; padding: 20px; max-width: 800px; margin: 0 auto; animation: fadeIn 0.4s; }
+        .content-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .summary-card {
+            background: linear-gradient(to right, #fff, #FFF0F5);
+            padding: 20px; border-radius: 18px; margin-bottom: 25px;
+            border-left: 6px solid var(--primary); box-shadow: var(--shadow);
+        }
+        .summary-date { color: var(--primary-dark); font-weight: bold; font-size: 0.9rem; display: block; margin-bottom: 5px; }
+        .summary-title { font-size: 1.4rem; font-weight: bold; margin: 0; color: #333; }
+
+        .timeline { position: relative; padding-left: 15px; }
+        .timeline::before {
+            content: ''; position: absolute; left: 6px; top: 15px; bottom: 15px;
+            width: 2px; background: #E0E0E0; border-radius: 2px;
+        }
+
+        details {
+            margin-bottom: 15px; position: relative;
+            background: var(--card-bg); border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: all 0.3s;
+        }
+        details[open] { box-shadow: var(--shadow); transform: scale(1.01); z-index: 10; }
+
+        summary {
+            list-style: none; padding: 18px; cursor: pointer; position: relative;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        summary::-webkit-details-marker { display: none; }
+        
+        summary::before {
+            content: ''; position: absolute; left: -20px; top: 50%; transform: translateY(-50%);
+            width: 12px; height: 12px; background: var(--secondary);
+            border: 4px solid var(--bg); border-radius: 50%; z-index: 2;
+        }
+
+        .card-header { display: flex; flex-direction: column; gap: 4px; }
+        .time { font-size: 0.85rem; color: var(--secondary); font-weight: bold; }
+        .title { font-size: 1.05rem; font-weight: bold; color: #333; }
+        .icon-expand { font-size: 1.2rem; color: #ccc; transition: 0.3s; }
+        details[open] .icon-expand { transform: rotate(180deg); color: var(--primary); }
+
+        .card-body { padding: 0 18px 20px; border-top: 1px solid #f0f0f0; color: #555; font-size: 0.95rem; line-height: 1.6; }
+        
+        .thai-address {
+            background: #F1F8E9; color: #33691E; padding: 10px; margin: 15px 0;
+            border-radius: 8px; font-size: 1.1rem; font-family: 'Kanit', sans-serif;
+            border: 1px dashed #AED581;
+        }
+        .thai-label { font-size: 0.75rem; color: #558B2F; display: block; margin-bottom: 2px; }
+
+        .girls-tip {
+            background: #FCE4EC; border-left: 4px solid #C2185B;
+            padding: 12px; border-radius: 0 8px 8px 0; margin-top: 15px;
+        }
+        .girls-tip strong { color: #C2185B; display: block; margin-bottom: 4px; }
+
+        .btn-map {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            background: #424242; color: white; text-decoration: none;
+            padding: 12px; border-radius: 12px; margin-top: 15px; font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .btn-map:active { opacity: 0.8; }
+
+        /* Shopping List Specific */
+        .shop-icon { font-size: 1.5rem; margin-right: 10px; vertical-align: middle; }
+        .shop-item { display: flex; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .shop-name { font-weight: bold; color: #333; }
+        .shop-desc { font-size: 0.85rem; color: #888; margin-left: auto; }
+
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h2 style="margin:0;">🔒 閨蜜行程表</h2>
+            <p style="opacity:0.8; font-size:0.9rem;">請輸入密碼解鎖</p>
+            <input type="password" id="pass-input" placeholder="****" maxlength="4">
+            <div class="error-msg" id="error-msg">密碼錯誤</div>
+            <button id="login-btn" onclick="checkPass()">進入</button>
+        </div>
+    </div>
+
+    <header>
+        <h1>🇹🇭 曼谷閨蜜深度遊</h1>
+        <div class="subtitle">6天5夜｜古蹟文青 x 頂級放鬆</div>
+        <div style="margin-top:10px; font-size:0.85rem; opacity:0.9;">
+            📅 12/24 - 12/29 (BR62 早班回)
+        </div>
+    </header>
+
+    <div class="nav-wrapper">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('day1')">Day 1 週三</button>
+            <button class="tab-btn" onclick="switchTab('day2')">Day 2 古蹟</button>
+            <button class="tab-btn" onclick="switchTab('day3')">Day 3 包車</button>
+            <button class="tab-btn" onclick="switchTab('day4')">Day 4 紅樓</button>
+            <button class="tab-btn" onclick="switchTab('day5')">Day 5 採購</button>
+            <button class="tab-btn" onclick="switchTab('shopping')">🛍️ 必買清單</button>
+            <button class="tab-btn" onclick="switchTab('tips')">⚠️ 救命必讀</button>
+        </div>
+    </div>
+
+    <div id="day1" class="content-section active">
+        <div class="summary-card">
+            <span class="summary-date">12/24 (週三)</span>
+            <h2 class="summary-title">船麵與文青街區</h2>
+        </div>
+
+        <div class="timeline">
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">14:00</span><span class="title">🏨 抵達 FYN Hotel</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>交通便利的基地。請叫 <b>Grab SUV</b> 直達。</p>
+                    <div class="thai-address"><span class="thai-label">給司機看：</span>โรงแรม ฟินน์ (อนุสาวรีย์ชัยสมรภูมิ)</div>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>去 7-11 買大瓶水放房間。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=FYN+Hotel+Bangkok" class="btn-map" target="_blank">📍 導航：FYN Hotel</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">15:30</span><span class="title">🍜 勝利紀念碑船麵街</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>推薦粉紅制服店 <b>Baan Kuay Tiew Ruathong</b>。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>半開放空間有點熱，記得帶小風扇。濕紙巾要收費，建議自備。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Baan+Kuay+Tiew+Ruathong" class="btn-map" target="_blank">📍 導航：粉紅船麵</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">18:00</span><span class="title">🍲 晚餐：Ong Tong Khao Soi</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>米其林必比登推薦泰北咖哩麵。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>吃完去隔壁 <b>Gump's Ari</b> 拍照，那邊超多網美佈景！</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Ong+Tong+Khao+Soi+Ari" class="btn-map" target="_blank">📍 導航：Ong Tong</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">20:30</span><span class="title">💆‍♂️ Nikko Thai Massage</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>飯店附近正規按摩，Rangnam 分店。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Nikko+Thai+Massage+Rangnam" class="btn-map" target="_blank">📍 導航：Nikko Massage</a>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div id="day2" class="content-section">
+        <div class="summary-card">
+            <span class="summary-date">12/25 (週四)</span>
+            <h2 class="summary-title">河岸古蹟大滿貫</h2>
+        </div>
+
+        <div class="timeline">
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">08:30</span><span class="title">👑 大皇宮 & 臥佛寺</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>泰國最神聖景點。必須穿有袖上衣 + 過膝長褲/裙。</p>
+                    <div class="thai-address"><span class="thai-label">給司機看：</span>พระบรมมหาราชวัง</div>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>路邊有人說「沒開」是騙人的！直直往入口走。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=The+Grand+Palace+Bangkok" class="btn-map" target="_blank">📍 導航：大皇宮</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">14:30</span><span class="title">📸 鄭王廟 (Wat Arun)</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>白色馬賽克佛塔。N8 碼頭搭接駁船。</p>
+                    <div class="thai-address"><span class="thai-label">給司機看：</span>วัดอรุณราชวราราม</div>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>這裡租泰服拍照最美！但階梯很陡，穿泰服上下要小心裙擺。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Wat+Arun" class="btn-map" target="_blank">📍 導航：鄭王廟</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">17:00</span><span class="title">🎨 Talat Noi 老城文創區</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>推薦 Mother Roaster 廢墟咖啡。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>巷弄很小，地圖會飄，認準 Mother Roaster 招牌。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Mother+Roaster+Talat+Noi" class="btn-map" target="_blank">📍 導航：Mother Roaster</a>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div id="day3" class="content-section">
+        <div class="summary-card">
+            <span class="summary-date">12/26 (週五)</span>
+            <h2 class="summary-title">近郊包車一日遊</h2>
+        </div>
+        <div class="timeline">
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">09:00</span><span class="title">🛶 水上市場 & 鐵道市場</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>丹嫩莎朵 (Damnoen Saduak) + 美功鐵道 (Maeklong)。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>水上市場殺價請從 3 折開始喊。火車經過時很吵，保護好耳膜。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Damnoen+Saduak+Floating+Market" class="btn-map" target="_blank">📍 導航：水上市場</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">15:00</span><span class="title">☕ After the Rain Coffee</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>雨林河道划船咖啡廳。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>蚊子多，防蚊液要噴好噴滿。划船小心不要翻。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=After+the+Rain+Coffee+and+Gallery" class="btn-map" target="_blank">📍 導航：After the Rain</a>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div id="day4" class="content-section">
+        <div class="summary-card">
+            <span class="summary-date">12/27 (週六)</span>
+            <h2 class="summary-title">週末限定！紅樓與甘蔗店</h2>
+        </div>
+        <div class="timeline">
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">10:00</span><span class="title">🎪 Bangsue Junction (紅樓)</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>古著、二手古董、黑膠。恰圖恰對面。</p>
+                    <div class="thai-address"><span class="thai-label">給司機看：</span>ตึกแดง จตุจักร</div>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>90% 店家只收現金！廁所要收 5 泰銖，自備衛生紙。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Bangsue+Junction" class="btn-map" target="_blank">📍 導航：紅樓</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">16:30</span><span class="title">🌿 The Ganjamen (驚奇甘蔗店)</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>Town in Town 區，裝潢很有質感的店。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>安全第一，不碰陌生人的捲菸。只點無 THC 飲料感受氣氛就好。嚴禁購買任何產品回台。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=The+Ganjamen" class="btn-map" target="_blank">📍 導航：Ganjamen</a>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div id="day5" class="content-section">
+        <div class="summary-card">
+            <span class="summary-date">12/28 (週日)</span>
+            <h2 class="summary-title">最後採購與 SPA</h2>
+        </div>
+        <div class="timeline">
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">10:00</span><span class="title">🛍️ 水門市場 (Platinum)</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>衣服飾品批發價。冷氣超涼。</p>
+                    <div class="girls-tip"><strong>👧 閨蜜悄悄話</strong>衣服通常不能試穿，帶個捲尺量比較準。頂樓美食街好吃又便宜。</div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=The+Platinum+Fashion+Mall" class="btn-map" target="_blank">📍 導航：水門市場</a>
+                </div>
+            </details>
+
+            <details>
+                <summary>
+                    <div class="card-header"><span class="time">14:00</span><span class="title">💆‍♀️ Let's Relax Spa</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>推薦：藥草球按摩 (Thai Herbal Massage)。需預約 Phayathai 店。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Let's+Relax+Spa+Phayathai" class="btn-map" target="_blank">📍 導航：Let's Relax</a>
+                </div>
+            </details>
+
+             <details>
+                <summary>
+                    <div class="card-header"><span class="time">17:30</span><span class="title">🦀 建興酒家 (Somboon)</span></div>
+                    <div class="icon-expand">▼</div>
+                </summary>
+                <div class="card-body">
+                    <p>最後的晚餐，必點咖哩炒蟹。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Somboon+Seafood+Bantadthong" class="btn-map" target="_blank">📍 導航：建興酒家</a>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div id="shopping" class="content-section">
+        <div class="summary-card">
+            <h2 class="summary-title">🛍️ 必買伴手禮清單</h2>
+            <p>超市、藥妝與文青小物推薦。</p>
+        </div>
+
+        <details open>
+            <summary><div class="title">🛒 7-11 / Big C 超市</div><div class="icon-expand">▼</div></summary>
+            <div class="card-body">
+                <div class="shop-item"><span class="shop-icon">🥤</span><span class="shop-name">手標泰式茶</span><span class="shop-desc">紅/金罐必買</span></div>
+                <div class="shop-item"><span class="shop-icon">🥖</span><span class="shop-name">Pretz 餅乾</span><span class="shop-desc">打拋豬口味</span></div>
+                <div class="shop-item"><span class="shop-icon">🍯</span><span class="shop-name">皇家計畫蜂蜜</span><span class="shop-desc">條狀好攜帶</span></div>
+                <div class="shop-item"><span class="shop-icon">🦑</span><span class="shop-name">Bento 魷魚片</span><span class="shop-desc">蒜辣味</span></div>
+                <div class="girls-tip">超市可以免費打包裝箱，方便托運！</div>
+            </div>
+        </details>
+
+        <details>
+            <summary><div class="title">🌿 藥妝 & 香氛</div><div class="icon-expand">▼</div></summary>
+            <div class="card-body">
+                <div class="shop-item"><span class="shop-icon">😤</span><span class="shop-name">Hong Thai 草藥罐</span><span class="shop-desc">綠色罐子</span></div>
+                <div class="shop-item"><span class="shop-icon">🦟</span><span class="shop-name">Soffell 防蚊液</span><span class="shop-desc">粉紅玫瑰味</span></div>
+                <div class="shop-item"><span class="shop-icon">🦷</span><span class="shop-name">Dentiste 牙膏</span><span class="shop-desc">比台灣便宜</span></div>
+                <div class="shop-item"><span class="shop-icon">💐</span><span class="shop-name">Karmakamet</span><span class="shop-desc">香氛錦囊</span></div>
+            </div>
+        </details>
+
+        <details>
+            <summary><div class="title">👗 文青 & 復古</div><div class="icon-expand">▼</div></summary>
+            <div class="card-body">
+                <div class="shop-item"><span class="shop-icon">🎪</span><span class="shop-name">紅樓古著</span><span class="shop-desc">二手 T-shirt</span></div>
+                <div class="shop-item"><span class="shop-icon">🎨</span><span class="shop-name">BACC 文創</span><span class="shop-desc">手繪貼紙/袋子</span></div>
+                <div class="shop-item"><span class="shop-icon">🌿</span><span class="shop-name">Ganjamen 周邊</span><span class="shop-desc">帽子/衣服</span></div>
+            </div>
+        </details>
+
+        <div class="girls-tip" style="background:#FFEBEE; border-color:#C62828;">
+            <strong style="color:#C62828;">🚫 嚴禁帶回台灣</strong>
+            豬肉製品 (炸豬皮、肉鬆米餅)、大麻相關產品 (軟糖、飲料、煙具)。抓到就是重罪！
+        </div>
+    </div>
+
+    <div id="tips" class="content-section">
+        <div class="summary-card"><h2 class="summary-title">⚠️ 4位女生的救命筆記</h2></div>
+        <details>
+            <summary><div class="title">🚗 交通安全</div><div class="icon-expand">▼</div></summary>
+            <div class="card-body">去機場務必叫 <b>Grab SUV</b> 或分兩車。晚上搭車可用 Share Ride 功能傳行程給群組。</div>
+        </details>
+        <details>
+            <summary><div class="title">💸 現金與小費</div><div class="icon-expand">▼</div></summary>
+            <div class="card-body">紅樓多收現金。按摩小費給紙鈔 (50-100)。</div>
+        </details>
+         <details>
+            <summary><div class="title">🛫 Day 6 回程警告</div><div class="icon-expand">▼</div></summary>
+            <div class="card-body">週一早上大塞車，請預留 1 小時以上車程。建議 08:00 前上車。</div>
+        </details>
+    </div>
+
+    <script>
+        // 🔒 密碼邏輯
+        function checkPass() {
+            var input = document.getElementById('pass-input').value;
+            // 設定密碼為 1225
+            if(input === '1225') {
+                document.getElementById('login-screen').style.opacity = '0';
+                setTimeout(function(){
+                    document.getElementById('login-screen').style.display = 'none';
+                }, 500);
+            } else {
+                var error = document.getElementById('error-msg');
+                error.style.display = 'block';
+                // 震動效果
+                var box = document.querySelector('.login-box');
+                box.style.transform = 'translateX(10px)';
+                setTimeout(() => box.style.transform = 'translateX(-10px)', 100);
+                setTimeout(() => box.style.transform = 'translateX(0)', 200);
+            }
+        }
+
+        // Tab 切換
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
